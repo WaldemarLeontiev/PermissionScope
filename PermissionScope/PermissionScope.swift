@@ -46,7 +46,7 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
     /// Font used for all the UILabels
     public var labelFont:UIFont             = .systemFont(ofSize: 14)
     /// Close button. By default in the top right corner.
-    public var closeButton                  = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 32))
+    public var closeButton                  = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 32))
     /// Offset used to position the Close button.
     public var closeOffset                  = CGSize.zero
     /// Color used for permission buttons with authorized status
@@ -194,6 +194,7 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
         contentView.addSubview(bodyLabel)
         
         // close button
+        closeButton.contentHorizontalAlignment = .right
         closeButton.setTitle("Close".localized, for: .normal)
         closeButton.addTarget(self, action: #selector(cancel), for: .touchUpInside)
         closeButton.accessibilityIdentifier = "permissionscope.closeButton"
@@ -251,7 +252,7 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
         
         closeButton.center = contentView.center
         closeButton.frame.offsetInPlace(dx: -contentView.frame.origin.x, dy: -contentView.frame.origin.y)
-        closeButton.frame.offsetInPlace(dx: 105, dy: -((dialogHeight/2)-20))
+        closeButton.frame.offsetInPlace(dx: 80, dy: -((dialogHeight/2)-20))
         closeButton.frame.offsetInPlace(dx: self.closeOffset.width, dy: self.closeOffset.height)
         if let _ = closeButton.imageView?.image {
             closeButton.setTitle("", for: .normal)
@@ -325,6 +326,8 @@ typealias resultsForConfigClosure     = ([PermissionResult]) -> Void
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 220, height: 40))
         button.setTitleColor(permissionButtonTextColor, for: .normal)
         button.titleLabel?.font = buttonFont
+        button.titleLabel?.lineBreakMode = .byWordWrapping
+        button.titleLabel?.textAlignment = .center
 
         button.layer.borderWidth = permissionButtonBorderWidth
         button.layer.borderColor = permissionButtonBorderColor.cgColor
